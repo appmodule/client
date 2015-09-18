@@ -41,6 +41,7 @@
 #if defined(Q_OS_X11)
 #include <QX11Info>
 #endif
+#include "config.h"
 
 namespace OCC {
 
@@ -309,6 +310,7 @@ void ownCloudGui::addAccountContextMenu(AccountStatePtr accountState, QMenu *men
 {
     // Only show the name in the action if it's not part of an
     // account sub menu.
+#ifndef HIDE_OPEN_WEB_OWNCLOUD
     QString browserOpen = tr("Open in browser");
     if (!separateMenu) {
         browserOpen = tr("Open %1 in browser").arg(Theme::instance()->appNameGUI());
@@ -316,6 +318,7 @@ void ownCloudGui::addAccountContextMenu(AccountStatePtr accountState, QMenu *men
     auto actionOpenoC = menu->addAction(browserOpen);
     actionOpenoC->setProperty(propertyAccountC, QVariant::fromValue(accountState->account()));
     QObject::connect(actionOpenoC, SIGNAL(triggered(bool)), SLOT(slotOpenOwnCloud()));
+#endif
 
     if (separateMenu) {
         if (accountState->isSignedOut()) {
@@ -427,21 +430,24 @@ void ownCloudGui::setupContextMenu()
 
     _contextMenu->addSeparator();
 
+#ifndef HIDE_CONTEXT_MENU_ITEMS
     if (isConfigured && atLeastOneConnected) {
         _contextMenu->addAction(_actionStatus);
         _contextMenu->addMenu(_recentActionsMenu);
         _contextMenu->addSeparator();
     }
     _contextMenu->addAction(_actionSettings);
+#endif
     if (!Theme::instance()->helpUrl().isEmpty()) {
         _contextMenu->addAction(_actionHelp);
     }
-
+#ifndef HIDE_CONTEXT_MENU_ITEMS
     if(_actionCrash) {
         _contextMenu->addAction(_actionCrash);
     }
 
     _contextMenu->addSeparator();
+#endif
     if (atLeastOneSignedIn) {
         if (accountList.count() > 1) {
             _actionLogout->setText(tr("Sign out everywhere"));

@@ -68,6 +68,11 @@ OwncloudAdvancedSetupPage::OwncloudAdvancedSetupPage()
     _ui.lServerIcon->setPixmap(appIcon.pixmap(48));
     _ui.lLocalIcon->setText(QString());
     _ui.lLocalIcon->setPixmap(QPixmap(Theme::hidpiFileName(":/client/resources/folder-sync.png")));
+
+#ifdef HIDE_SELECT_FOLDERS_FOR_SYNC
+    _ui.widget_2->hide();
+    _ui.widget->hide();
+#endif
 }
 
 void OwncloudAdvancedSetupPage::setupCustomization()

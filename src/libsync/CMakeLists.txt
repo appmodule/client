@@ -70,6 +70,7 @@ set(libsync_SRCS
     creds/httpcredentials.cpp
     ../3rdparty/qjson/json.cpp
     ../3rdparty/certificates/p12topem.cpp
+    ${OEM_THEME_DIR}/oemtheme.cpp
 )
 
 if(USE_NEON)

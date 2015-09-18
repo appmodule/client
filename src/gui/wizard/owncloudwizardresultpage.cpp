@@ -21,6 +21,8 @@
 #include "wizard/owncloudwizardresultpage.h"
 #include "wizard/owncloudwizardcommon.h"
 #include "theme.h"
+#include "config.h"
+
 
 namespace OCC
 {
@@ -53,6 +55,10 @@ OwncloudWizardResultPage::OwncloudWizardResultPage()
     _ui.pbOpenServer->setToolButtonStyle(Qt::ToolButtonTextUnderIcon);
     connect(_ui.pbOpenServer, SIGNAL(clicked()), SLOT(slotOpenServer()));
     setupCustomization();
+
+#ifdef HIDE_OPEN_WEB_OWNCLOUD
+    _ui.pbOpenServer->hide();
+#endif
 }
 
 OwncloudWizardResultPage::~OwncloudWizardResultPage()

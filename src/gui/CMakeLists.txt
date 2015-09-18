@@ -82,7 +82,7 @@ set(client_SRCS
     wizard/owncloudwizardcommon.cpp
     wizard/owncloudwizard.cpp
     wizard/owncloudwizardresultpage.cpp
-    ../3rdparty/qjson/json.cpp
+    ../3rdparty/qjson/json.cpp    
 )
 
 
