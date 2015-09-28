@@ -18,6 +18,11 @@
 #include "theme.h"
 #include "account.h"
 
+#include "accountmanager.h"
+#include "owncloudsetupwizard.h"
+#include "qapplication.h"
+#include "config.h"
+
 using namespace QKeychain;
 
 namespace OCC
@@ -25,8 +30,21 @@ namespace OCC
 
 void HttpCredentialsGui::askFromUser()
 {
+#ifndef HIDE_CONTEXT_MENU_ITEMS
     // The rest of the code assumes that this will be done asynchronously
     QMetaObject::invokeMethod(this, "askFromUserAsync", Qt::QueuedConnection);
+#else
+    auto manager = AccountManager::instance();
+
+    foreach (auto ai , manager->accounts()) {
+        manager->deleteAccount(ai.data());
+    }
+
+    if(manager->accounts().isEmpty()) {
+        OwncloudSetupWizard::runWizard(qApp, SLOT(slotownCloudWizardDone(int)));
+    }
+#endif
+
 }
 
 void HttpCredentialsGui::askFromUserAsync()
