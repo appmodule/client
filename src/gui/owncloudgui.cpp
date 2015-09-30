@@ -68,8 +68,10 @@ ownCloudGui::ownCloudGui(Application *parent) :
     // for the beginning, set the offline icon until the account was verified
     _tray->setIcon( Theme::instance()->folderOfflineIcon(true));
 
+#ifndef HIDE_CONTEXT_MENU_ITEMS
     connect(_tray.data(), SIGNAL(activated(QSystemTrayIcon::ActivationReason)),
             SLOT(slotTrayClicked(QSystemTrayIcon::ActivationReason)));
+#endif
 
     setupActions();
     setupContextMenu();
@@ -456,7 +458,7 @@ void ownCloudGui::setupContextMenu()
         }
         _contextMenu->addAction(_actionLogout);
     }
-    if (atLeastOneSignedOut) {
+    if (atLeastOneSignedOut || !atLeastOneSignedIn) {
         if (accountList.count() > 1) {
             _actionLogin->setText(tr("Sign in everywhere..."));
         } else {
@@ -629,10 +631,19 @@ void ownCloudGui::slotLogin()
     if (auto account = qvariant_cast<AccountStatePtr>(sender()->property(propertyAccountC))) {
         account->setSignedOut(false);
     } else {
+
+#ifdef HIDE_CONTEXT_MENU_ITEMS
+        if (list.length()==0) {
+            OwncloudSetupWizard::runWizard(qApp, SLOT(slotownCloudWizardDone(int)));
+            return;
+        }
+#endif
         foreach (const auto &a, list) {
             a->setSignedOut(false);
         }
     }
+
+
 }
 
 void ownCloudGui::slotLogout()

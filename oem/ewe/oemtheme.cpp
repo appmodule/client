@@ -8,9 +8,6 @@ namespace OCC {
 eweCloudTheme::eweCloudTheme() : ownCloudTheme()
 {
     qDebug() << " ** running eweCloud theme!";
-    if (APPLICATION_NAME == "EWECloud")
-    qDebug() << APPLICATION_NAME;
-
 }
 
 QString eweCloudTheme::appName() const
