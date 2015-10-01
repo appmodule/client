@@ -30,6 +30,7 @@
 #include <QtGui>
 
 #include <stdlib.h>
+#include "config.h"
 
 namespace OCC
 {
@@ -173,8 +174,9 @@ void OwncloudWizard::slotCurrentPageChanged( int id )
         appendToConfigurationLog( QString::null );
     }
 
+#ifndef HIDE_CONTEXT_MENU_ITEMS
     setOption(QWizard::HaveCustomButton1, id == WizardCommon::Page_AdvancedSetup);
-
+#endif
     if (id == WizardCommon::Page_AdvancedSetup) {
         // Going back from this page messes the state as the account is created already
         button(QWizard::BackButton)->setDisabled(true);
