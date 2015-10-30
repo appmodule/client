@@ -22,7 +22,8 @@ QString eweCloudTheme::appNameGUI() const
 
 QString eweCloudTheme::overrideServerUrl() const
 {
-    return QLatin1String("http://fulda242.server4you.net/ocdaily");
+//    return QLatin1String("http://fulda242.server4you.net/ocdaily");
+    return QLatin1String("https://mediencenter-fut.ewetel.de");
 }
 
 bool eweCloudTheme::singleAccount() const
