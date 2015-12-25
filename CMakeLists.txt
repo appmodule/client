@@ -4,9 +4,10 @@ cmake_policy(VERSION 2.8.0)
 project(client)
 
 #possible values ewe, swb and osnatel
-set(OEM_BRAND "ewe")
+set(OEM_BRAND "osnatel")
 
-set(OEM_THEME_DIR "${CMAKE_SOURCE_DIR}/oem/${OEM_BRAND}" CACHE STRING "Define directory containing a custom theme")
+# CACHE STRING "Define directory containing a custom theme"
+set(OEM_THEME_DIR "${CMAKE_SOURCE_DIR}/oem/${OEM_BRAND}")
 if ( EXISTS ${OEM_THEME_DIR}/OEM.cmake )
      include ( ${OEM_THEME_DIR}/OEM.cmake )
 else ()
