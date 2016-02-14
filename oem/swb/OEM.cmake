@@ -6,7 +6,7 @@ set( APPLICATION_UPDATE_URL "https://updates.owncloud.com/client/" CACHE string 
 
 set( THEME_CLASS            "swbCloudTheme" )
 set( APPLICATION_REV_DOMAIN "com.owncloud.desktopclient" )
-set( WIN_SETUP_BITMAP_PATH  "${CMAKE_SOURCE_DIR}/admin/win/nsi/themes/swb" )
+set( WIN_SETUP_BITMAP_PATH  "${CMAKE_SOURCE_DIR}/admin/win/nsi" )
 
 set( MAC_INSTALLER_BACKGROUND_FILE "${CMAKE_SOURCE_DIR}/admin/osx/installer-background.png" CACHE STRING "The MacOSX installer background image")
 
