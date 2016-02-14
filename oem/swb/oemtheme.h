@@ -4,10 +4,10 @@
 #include "owncloudtheme.h"
 
 namespace OCC {
-class eweCloudTheme : public ownCloudTheme
+class swbCloudTheme : public ownCloudTheme
 {
 public:
-    eweCloudTheme();
+    swbCloudTheme();
     QString appName() const Q_DECL_OVERRIDE;
     QString appNameGUI() const Q_DECL_OVERRIDE;
     QString overrideServerUrl() const Q_DECL_OVERRIDE;

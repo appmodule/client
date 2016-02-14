@@ -1,10 +1,10 @@
-set( APPLICATION_NAME       "EWECloud" )
-set( APPLICATION_EXECUTABLE "EWECloud" )
-set( APPLICATION_DOMAIN     "cloud.ewe.de" )
-set( APPLICATION_VENDOR     "EWECloud" )
+set( APPLICATION_NAME       "SWBCloud" )
+set( APPLICATION_EXECUTABLE "SWBCloud" )
+set( APPLICATION_DOMAIN     "cloud.swb.de" )
+set( APPLICATION_VENDOR     "SWBCloud" )
 set( APPLICATION_UPDATE_URL "https://updates.owncloud.com/client/" CACHE string "URL for updater" )
 
-set( THEME_CLASS            "eweCloudTheme" )
+set( THEME_CLASS            "swbCloudTheme" )
 set( APPLICATION_REV_DOMAIN "com.owncloud.desktopclient" )
 set( WIN_SETUP_BITMAP_PATH  "${CMAKE_SOURCE_DIR}/admin/win/nsi" )
 

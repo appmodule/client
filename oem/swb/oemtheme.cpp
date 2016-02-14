@@ -5,38 +5,38 @@
 #include <QDebug>
 
 namespace OCC {
-eweCloudTheme::eweCloudTheme() : ownCloudTheme()
+swbCloudTheme::swbCloudTheme() : ownCloudTheme()
 {
-    qDebug() << " ** running eweCloud theme!";
+    qDebug() << " ** running swbCloud theme!";
 }
 
-QString eweCloudTheme::appName() const
+QString swbCloudTheme::appName() const
 {
-    return QLatin1String("EWECloud");
+    return QLatin1String("SWBCloud");
 }
 
-QString eweCloudTheme::appNameGUI() const
+QString swbCloudTheme::appNameGUI() const
 {
-    return QLatin1String("EWECloud");
+    return QLatin1String("SWBCloud");
 }
 
-QString eweCloudTheme::overrideServerUrl() const
+QString swbCloudTheme::overrideServerUrl() const
 {
 //    return QLatin1String("http://fulda242.server4you.net/ocdaily");
     return QLatin1String("https://mediencenter-fut.ewetel.de");
 }
 
-bool eweCloudTheme::singleAccount() const
+bool swbCloudTheme::singleAccount() const
 {
     return true;
 }
 
-QString eweCloudTheme::helpUrl() const
+QString swbCloudTheme::helpUrl() const
 {
-    return QLatin1String("http://ewe.de");
+    return QLatin1String("https://www.swb-gruppe.de/");
 }
 
-bool eweCloudTheme::singleSyncFolder() const
+bool swbCloudTheme::singleSyncFolder() const
 {
     return true;
 }
