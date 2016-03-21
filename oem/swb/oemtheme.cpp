@@ -3,6 +3,7 @@
 #include "config.h"
 
 #include <QDebug>
+#include <QColor>
 
 namespace OCC {
 swbCloudTheme::swbCloudTheme() : ownCloudTheme()
@@ -40,5 +41,12 @@ bool swbCloudTheme::singleSyncFolder() const
 {
     return true;
 }
+
+#ifndef TOKEN_AUTH_ONLY
+QColor swbCloudTheme::wizardHeaderBackgroundColor() const
+{
+    return QColor("#E30613");
+}
+#endif
 
 }

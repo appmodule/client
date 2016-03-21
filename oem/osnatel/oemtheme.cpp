@@ -1,8 +1,8 @@
 #include "oemtheme.h"
-#include "owncloudtheme.h"
 #include "config.h"
 
 #include <QDebug>
+#include <QColor>
 
 namespace OCC {
 osnatelCloudTheme::osnatelCloudTheme() : ownCloudTheme()
@@ -41,5 +41,12 @@ bool osnatelCloudTheme::singleSyncFolder() const
 {
     return true;
 }
+
+#ifndef TOKEN_AUTH_ONLY
+QColor osnatelCloudTheme::wizardHeaderBackgroundColor() const
+{
+    return QColor("#b90510");
+}
+#endif
 
 }

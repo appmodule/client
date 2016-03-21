@@ -62,6 +62,8 @@ void OwncloudHttpCredsPage::setupCustomization()
         WizardCommon::setupCustomMedia( variant, _ui.topLabel );
     }
 
+    theme->wizardHeaderBackgroundColor();
+
     variant = theme->customMedia( Theme::oCSetupBottom );
     WizardCommon::setupCustomMedia( variant, _ui.bottomLabel );
 }
