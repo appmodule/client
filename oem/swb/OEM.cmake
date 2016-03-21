@@ -1,7 +1,7 @@
-set( APPLICATION_NAME       "SWBCloud" )
-set( APPLICATION_EXECUTABLE "SWBCloud" )
+set( APPLICATION_NAME       "swbCloud" )
+set( APPLICATION_EXECUTABLE "swbCloud" )
 set( APPLICATION_DOMAIN     "cloud.swb.de" )
-set( APPLICATION_VENDOR     "SWBCloud" )
+set( APPLICATION_VENDOR     "swbCloud" )
 set( APPLICATION_UPDATE_URL "https://updates.owncloud.com/client/" CACHE string "URL for updater" )
 
 set( THEME_CLASS            "swbCloudTheme" )
