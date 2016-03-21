@@ -12,12 +12,12 @@ swbCloudTheme::swbCloudTheme() : ownCloudTheme()
 
 QString swbCloudTheme::appName() const
 {
-    return QLatin1String("SWBCloud");
+    return QLatin1String("swbCloud");
 }
 
 QString swbCloudTheme::appNameGUI() const
 {
-    return QLatin1String("SWBCloud");
+    return QLatin1String("swbCloud");
 }
 
 QString swbCloudTheme::overrideServerUrl() const
