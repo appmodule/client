@@ -23,8 +23,9 @@ QString osnatelCloudTheme::appNameGUI() const
 QString osnatelCloudTheme::overrideServerUrl() const
 {
 //    return QLatin1String("http://fulda242.server4you.net/ocdaily");
-    return QLatin1String("https://mediencenter-fut.ewetel.de");
+//    return QLatin1String("https://mediencenter-fut.ewetel.de");
 //    return QLatin1String("http://cloud.appmodule.rs");
+    return QLatin1String("https://mediencenter.osnanet.de");
 }
 
 bool osnatelCloudTheme::singleAccount() const
@@ -34,7 +35,7 @@ bool osnatelCloudTheme::singleAccount() const
 
 QString osnatelCloudTheme::helpUrl() const
 {
-    return QLatin1String("https://www.osnatel.de");
+    return QLatin1String("http://www.osnatel.de/info/impressum.htm");
 }
 
 bool osnatelCloudTheme::singleSyncFolder() const

@@ -23,7 +23,8 @@ QString eweCloudTheme::appNameGUI() const
 QString eweCloudTheme::overrideServerUrl() const
 {
 //    return QLatin1String("http://fulda242.server4you.net/ocdaily");
-    return QLatin1String("https://mediencenter-fut.ewetel.de");
+//    return QLatin1String("https://mediencenter-fut.ewetel.de");
+    return QLatin1String("https://mediencenter.ewe.de");
 }
 
 bool eweCloudTheme::singleAccount() const
@@ -33,7 +34,7 @@ bool eweCloudTheme::singleAccount() const
 
 QString eweCloudTheme::helpUrl() const
 {
-    return QLatin1String("http://ewe.de");
+    return QLatin1String("https://www.ewe.de/privatkunden/impressum");
 }
 
 bool eweCloudTheme::singleSyncFolder() const

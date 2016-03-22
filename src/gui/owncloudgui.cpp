@@ -524,7 +524,8 @@ void ownCloudGui::setupActions()
 
     QObject::connect(_actionRecent, SIGNAL(triggered(bool)), SLOT(slotShowSyncProtocol()));
     QObject::connect(_actionSettings, SIGNAL(triggered(bool)), SLOT(slotShowSettings()));
-    _actionHelp = new QAction(tr("Help"), this);
+//    _actionHelp = new QAction(tr("Help"), this);
+     _actionHelp = new QAction(tr("Impressum"), this);
     QObject::connect(_actionHelp, SIGNAL(triggered(bool)), SLOT(slotHelp()));
     _actionQuit = new QAction(tr("Quit %1").arg(Theme::instance()->appNameGUI()), this);
     QObject::connect(_actionQuit, SIGNAL(triggered(bool)), _app, SLOT(quit()));
