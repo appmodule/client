@@ -121,6 +121,10 @@ public:
     */
     virtual QString helpUrl() const { return QString::null; }
 
+    virtual QString termsUrl() const { return QString::null; }
+
+    virtual QString privacyUrl() const { return QString::null; }
+
     /**
      * Setting a value here will pre-define the server url.
      *

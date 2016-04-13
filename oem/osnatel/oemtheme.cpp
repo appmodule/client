@@ -35,7 +35,17 @@ bool osnatelCloudTheme::singleAccount() const
 
 QString osnatelCloudTheme::helpUrl() const
 {
+    return QString::null;
+}
+
+QString osnatelCloudTheme::termsUrl() const
+{
     return QLatin1String("http://www.osnatel.de/info/impressum.htm");
+}
+
+QString osnatelCloudTheme::privacyUrl() const
+{
+    return QLatin1String("http://www.osnatel.de/datenschutz");
 }
 
 bool osnatelCloudTheme::singleSyncFolder() const

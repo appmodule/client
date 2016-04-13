@@ -34,7 +34,17 @@ bool eweCloudTheme::singleAccount() const
 
 QString eweCloudTheme::helpUrl() const
 {
+    return QString::null;
+}
+
+QString eweCloudTheme::termsUrl() const
+{
     return QLatin1String("https://www.ewe.de/privatkunden/impressum");
+}
+
+QString eweCloudTheme::privacyUrl() const
+{
+    return QLatin1String("https://www.ewe.de/datenschutz");
 }
 
 bool eweCloudTheme::singleSyncFolder() const

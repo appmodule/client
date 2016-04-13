@@ -443,6 +443,12 @@ void ownCloudGui::setupContextMenu()
     if (!Theme::instance()->helpUrl().isEmpty()) {
         _contextMenu->addAction(_actionHelp);
     }
+    if (!Theme::instance()->termsUrl().isEmpty()) {
+        _contextMenu->addAction(_actionTerms);
+    }
+    if (!Theme::instance()->privacyUrl().isEmpty()) {
+        _contextMenu->addAction(_actionPrivacy);
+    }
 #ifndef HIDE_CONTEXT_MENU_ITEMS
     if(_actionCrash) {
         _contextMenu->addAction(_actionCrash);
@@ -524,9 +530,18 @@ void ownCloudGui::setupActions()
 
     QObject::connect(_actionRecent, SIGNAL(triggered(bool)), SLOT(slotShowSyncProtocol()));
     QObject::connect(_actionSettings, SIGNAL(triggered(bool)), SLOT(slotShowSettings()));
-//    _actionHelp = new QAction(tr("Help"), this);
-     _actionHelp = new QAction(tr("Impressum"), this);
+
+    //Help is disabled
+    _actionHelp = new QAction(tr("Help"), this);
+//     _actionHelp = new QAction(tr("Impressum"), this);
     QObject::connect(_actionHelp, SIGNAL(triggered(bool)), SLOT(slotHelp()));
+
+    _actionTerms = new QAction(tr("Impressum"), this);
+    QObject::connect(_actionTerms, SIGNAL(triggered(bool)), SLOT(slotTerms()));
+
+    _actionPrivacy = new QAction(tr("Datenschutz"), this);
+    QObject::connect(_actionPrivacy, SIGNAL(triggered(bool)), SLOT(slotPrivacy()));
+
     _actionQuit = new QAction(tr("Quit %1").arg(Theme::instance()->appNameGUI()), this);
     QObject::connect(_actionQuit, SIGNAL(triggered(bool)), _app, SLOT(quit()));
 
@@ -736,6 +751,16 @@ void ownCloudGui::slotOpenOwnCloud()
 void ownCloudGui::slotHelp()
 {
     QDesktopServices::openUrl(QUrl(Theme::instance()->helpUrl()));
+}
+
+void ownCloudGui::slotTerms()
+{
+    QDesktopServices::openUrl(QUrl(Theme::instance()->termsUrl()));
+}
+
+void ownCloudGui::slotPrivacy()
+{
+    QDesktopServices::openUrl(QUrl(Theme::instance()->privacyUrl()));
 }
 
 void ownCloudGui::raiseDialog( QWidget *raiseWidget )

@@ -74,6 +74,8 @@ public slots:
     void slotOpenOwnCloud();
     void slotOpenSettingsDialog();
     void slotHelp();
+    void slotTerms();
+    void slotPrivacy();
     void slotOpenPath(const QString& path);
     void slotAccountStateChanged();
     void slotShowShareDialog(const QString &sharePath, const QString &localPath, bool resharingAllowed);
@@ -110,6 +112,8 @@ private:
     QAction *_actionHelp;
     QAction *_actionQuit;
     QAction *_actionCrash;
+    QAction *_actionTerms;
+    QAction *_actionPrivacy;
 
     QList<QAction*> _recentItemsActions;
 

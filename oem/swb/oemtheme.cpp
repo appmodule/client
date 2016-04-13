@@ -35,7 +35,17 @@ bool swbCloudTheme::singleAccount() const
 
 QString swbCloudTheme::helpUrl() const
 {
+    return QString::null;
+}
+
+QString swbCloudTheme::termsUrl() const
+{
     return QLatin1String("https://www.swb-gruppe.de/modal/impressum.php");
+}
+
+QString swbCloudTheme::privacyUrl() const
+{
+    return QLatin1String("https://www.swb-gruppe.de/datenschutz");
 }
 
 bool swbCloudTheme::singleSyncFolder() const

@@ -14,6 +14,8 @@ public:
     bool singleAccount() const;
     bool singleSyncFolder() const;
     QString helpUrl() const;
+    QString termsUrl() const;
+    QString privacyUrl() const;
 };
 }
 

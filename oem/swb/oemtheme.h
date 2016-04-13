@@ -14,7 +14,8 @@ public:
     bool singleAccount() const;
     bool singleSyncFolder() const;
     QString helpUrl() const;
-
+    QString termsUrl() const;
+    QString privacyUrl() const;
     #ifndef TOKEN_AUTH_ONLY
     QColor wizardHeaderBackgroundColor() const Q_DECL_OVERRIDE;
     #endif
