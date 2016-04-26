@@ -37,6 +37,7 @@
 #include <QDesktopServices>
 #include <QMessageBox>
 #include <QSignalMapper>
+#include <QDebug>
 
 #if defined(Q_OS_X11)
 #include <QX11Info>
@@ -154,7 +155,9 @@ void ownCloudGui::slotOpenSettingsDialog()
     // if account is set up, start the configuration wizard.
     if( !AccountManager::instance()->accounts().isEmpty() ) {
         if (_settingsDialog.isNull() || !_settingsDialog->isVisible()) {
-            slotShowSettings();
+            if (!openPathInFileManager()) {
+                slotShowSettings();
+            }
         } else {
             _settingsDialog->close();
         }
@@ -162,6 +165,37 @@ void ownCloudGui::slotOpenSettingsDialog()
         qDebug() << "No configured folders yet, starting setup wizard";
         OwncloudSetupWizard::runWizard(qApp, SLOT(slotownCloudWizardDone(int)));
     }
+}
+
+bool ownCloudGui::openPathInFileManager() {
+
+    auto accountList = AccountManager::instance()->accounts();
+
+    AccountStatePtr accountState;
+
+    if (accountList.count() == 1) {
+            accountState = accountList.first();
+    } else {
+        return false;
+    }
+
+    FolderMan *folderMan = FolderMan::instance();
+
+    bool singleSyncFolder = folderMan->map().size() == 1 && Theme::instance()->singleSyncFolder();
+
+    bool isSuccess = false;
+
+    if (!singleSyncFolder) return false;
+
+    foreach (Folder* folder, folderMan->map()) {
+        if (folder->accountState() != accountState) {
+            continue;
+        }
+
+        showInFileManager(folder->path());
+        isSuccess = true;
+    }
+    return isSuccess;
 }
 
 void ownCloudGui::slotTrayClicked( QSystemTrayIcon::ActivationReason reason )

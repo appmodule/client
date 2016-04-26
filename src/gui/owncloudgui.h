@@ -73,6 +73,7 @@ public slots:
     void slotToggleLogBrowser();
     void slotOpenOwnCloud();
     void slotOpenSettingsDialog();
+    bool openPathInFileManager();
     void slotHelp();
     void slotTerms();
     void slotPrivacy();
