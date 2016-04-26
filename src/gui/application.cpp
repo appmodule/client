@@ -507,7 +507,8 @@ bool Application::versionOnly()
 
 void Application::showSettingsDialog()
 {
-    _gui->slotShowSettings();
+    _gui->slotOpenSettingsDialog();
+//    _gui->slotShowSettings();
 }
 
 
