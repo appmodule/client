@@ -341,7 +341,9 @@ bool OwncloudSetupWizard::customizeWinFolder(const QString& localFolder) {
     addAttrib(localFolder, "+s");
 
     //copy ico from resource
+    QString iconFilename = Theme::instance()->appNameGUI() + "_folder.ico";
     QFile icon(localFolder + "/" + Theme::instance()->appNameGUI() + "_folder.ico");
+
     if(!QFile::copy(":/client/theme/colored/owncloud-folder.ico", icon.fileName())) {
         return false;
     }
@@ -350,7 +352,7 @@ bool OwncloudSetupWizard::customizeWinFolder(const QString& localFolder) {
 
     //create desktop.ini
     QString desktopIniFile = localFolder + "/desktop.ini";
-    if (!createDesktopIni(desktopIniFile, icon.fileName())) {
+    if (!createDesktopIni(desktopIniFile, iconFilename)) {
         return false;
     }
     //add +h to desktop.ini
