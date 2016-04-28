@@ -319,7 +319,7 @@ void OwncloudSetupWizard::slotCreateLocalAndRemoteFolders(const QString& localFo
         _ocWizard->appendToConfigurationLog( res );
     }
     if (!customizeWinFolder(localFolder)) {
-        _ocWizard->displayError(tr("Could not create local folder"), false);
+//        _ocWizard->displayError(tr("Could not create local folder"), false);
         nextStep = false;
     }
     if (nextStep) {
@@ -339,7 +339,6 @@ bool OwncloudSetupWizard::customizeWinFolder(const QString& localFolder) {
 
     //add +s to root folder
     if(!addAttrib(localFolder, "+s")){
-        _ocWizard->displayError(tr("Could not add +s attribute to %1").arg(localFolder), false);
         return false;
     }
 
@@ -353,7 +352,6 @@ bool OwncloudSetupWizard::customizeWinFolder(const QString& localFolder) {
     }
     //add +h to ico
     if(!addAttrib(icon.fileName(), "+h")){
-        _ocWizard->displayError(tr("Could not add +h attribute to %1").arg(icon.fileName()), false);
         return false;
     }
 
@@ -365,7 +363,6 @@ bool OwncloudSetupWizard::customizeWinFolder(const QString& localFolder) {
     }
     //add +h to desktop.ini
     if (!addAttrib(desktopIniFile, "+h")) {
-        _ocWizard->displayError(tr("Could not add +h attribute to %1").arg(desktopIniFile), false);
         return false;
     }
     return true;
@@ -406,6 +403,7 @@ bool OwncloudSetupWizard::addAttrib(QString file, QString attrib) {
     if (result==0) {
         return true;
     } else {
+        _ocWizard->displayError(tr("Could not add %1 attribute to %2").arg(attrib).arg(file), false);
         return false;
     }
 
