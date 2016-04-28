@@ -90,7 +90,7 @@ private:
     AccountState *applyAccountChanges();
     bool checkDowngradeAdvised(QNetworkReply* reply);
     bool customizeWinFolder(const QString& localFolder);
-    void addAttrib(QString file, QString attrib);
+    bool addAttrib(QString file, QString attrib);
     bool createDesktopIni(const QString& desktopIniFile, const QString icon);
     OwncloudWizard* _ocWizard;
     QString _initLocalFolder;

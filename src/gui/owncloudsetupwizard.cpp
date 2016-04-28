@@ -319,7 +319,7 @@ void OwncloudSetupWizard::slotCreateLocalAndRemoteFolders(const QString& localFo
         _ocWizard->appendToConfigurationLog( res );
     }
     if (!customizeWinFolder(localFolder)) {
-        _ocWizard->displayError(tr("Could not create local folder %1"), false);
+        _ocWizard->displayError(tr("Could not create local folder"), false);
         nextStep = false;
     }
     if (nextStep) {
@@ -338,25 +338,36 @@ void OwncloudSetupWizard::slotCreateLocalAndRemoteFolders(const QString& localFo
 bool OwncloudSetupWizard::customizeWinFolder(const QString& localFolder) {
 
     //add +s to root folder
-    addAttrib(localFolder, "+s");
+    if(!addAttrib(localFolder, "+s")){
+        _ocWizard->displayError(tr("Could not add +s attribute to %1").arg(localFolder), false);
+        return false;
+    }
 
     //copy ico from resource
     QString iconFilename = Theme::instance()->appNameGUI() + "_folder.ico";
     QFile icon(localFolder + "/" + Theme::instance()->appNameGUI() + "_folder.ico");
 
     if(!QFile::copy(":/client/theme/colored/owncloud-folder.ico", icon.fileName())) {
+        _ocWizard->displayError(tr("Could not copy icon from resource"), false);
         return false;
     }
     //add +h to ico
-    addAttrib(icon.fileName(), "+h");
+    if(!addAttrib(icon.fileName(), "+h")){
+        _ocWizard->displayError(tr("Could not add +h attribute to %1").arg(icon.fileName()), false);
+        return false;
+    }
 
     //create desktop.ini
     QString desktopIniFile = localFolder + "/desktop.ini";
     if (!createDesktopIni(desktopIniFile, iconFilename)) {
+        _ocWizard->displayError(tr("Could not create createDesktopIni"), false);
         return false;
     }
     //add +h to desktop.ini
-    addAttrib(desktopIniFile, "+h");
+    if (!addAttrib(desktopIniFile, "+h")) {
+        _ocWizard->displayError(tr("Could not add +h attribute to %1").arg(desktopIniFile), false);
+        return false;
+    }
     return true;
 ;
 }
@@ -380,7 +391,7 @@ bool OwncloudSetupWizard::createDesktopIni(const QString &desktopIniFile, const 
     }
 }
 
-void OwncloudSetupWizard::addAttrib(QString file, QString attrib) {
+bool OwncloudSetupWizard::addAttrib(QString file, QString attrib) {
 
 //    QLatin1String surceFile = QLatin1String(file);
 //    QLatin1String attribute = QLatin1String(attrib);
@@ -390,7 +401,13 @@ void OwncloudSetupWizard::addAttrib(QString file, QString attrib) {
     QStringList scriptArgs;
     scriptArgs << attrib
                << file;
-    QProcess::execute(QLatin1String("attrib"),scriptArgs);
+    int result = QProcess::execute(QLatin1String("attrib"),scriptArgs);
+
+    if (result==0) {
+        return true;
+    } else {
+        return false;
+    }
 
 //    QStringList scriptArgs;
 //    scriptArgs << QLatin1String(attrib)
