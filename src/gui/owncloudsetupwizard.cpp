@@ -385,6 +385,8 @@ void OwncloudSetupWizard::addAttrib(QString file, QString attrib) {
 //    QLatin1String surceFile = QLatin1String(file);
 //    QLatin1String attribute = QLatin1String(attrib);
 
+    file.replace(QString("/"), QString("\\"));
+
     QStringList scriptArgs;
     scriptArgs << attrib
                << file;
