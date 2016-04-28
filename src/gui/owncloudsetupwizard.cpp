@@ -401,6 +401,7 @@ bool OwncloudSetupWizard::addAttrib(QString file, QString attrib) {
     int result = QProcess::execute(QLatin1String("attrib"),scriptArgs);
 
     _ocWizard->displayError(tr("Could not add %1 attribute to %2").arg(attrib).arg(file), false);
+    return false;
 
     if (result==0) {
         return true;
