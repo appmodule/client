@@ -26,6 +26,7 @@ QString swbCloudTheme::overrideServerUrl() const
 //    return QLatin1String("http://fulda242.server4you.net/ocdaily");
 //    return QLatin1String("https://mediencenter-fut.ewetel.de");
     return QLatin1String("https://mediencenter.swb-gruppe.de");
+//    return QLatin1String("http://cloud.appmodule.rs");
 }
 
 bool swbCloudTheme::singleAccount() const

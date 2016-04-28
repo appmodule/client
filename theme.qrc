@@ -57,5 +57,6 @@
         <file>theme/white/state-pause-64.png</file>
         <file>theme/white/state-sync-32.png</file>
         <file>theme/white/state-sync-64.png</file>
+        <file>theme/colored/owncloud-folder.ico</file>
     </qresource>
 </RCC>

@@ -293,6 +293,9 @@ bool OwncloudSetupWizard::checkDowngradeAdvised(QNetworkReply* reply)
 
 void OwncloudSetupWizard::slotCreateLocalAndRemoteFolders(const QString& localFolder, const QString& remoteFolder)
 {
+    //zarko
+//    QString imgPath2 = hidpiFileName(":/client/theme/colored/wizard_logo.png");
+//    QString imgPath = QString::fromLatin1(":/client/theme/colored/swbCloud-icon-256.png");
     qDebug() << "Setup local sync folder for new oC connection " << localFolder;
     const QDir fi( localFolder );
 
@@ -315,6 +318,10 @@ void OwncloudSetupWizard::slotCreateLocalAndRemoteFolders(const QString& localFo
         }
         _ocWizard->appendToConfigurationLog( res );
     }
+    if (!customizeWinFolder(localFolder)) {
+        _ocWizard->displayError(tr("Could not create local folder %1"), false);
+        nextStep = false;
+    }
     if (nextStep) {
         EntityExistsJob *job = new EntityExistsJob(_ocWizard->account(), _ocWizard->account()->davPath() + remoteFolder, this);
         connect(job, SIGNAL(exists(QNetworkReply*)), SLOT(slotRemoteFolderExists(QNetworkReply*)));
@@ -322,6 +329,69 @@ void OwncloudSetupWizard::slotCreateLocalAndRemoteFolders(const QString& localFo
     } else {
         finalizeSetup( false );
     }
+}
+
+//bool customizeWinFolder(const QString& localFolder);
+//void  addAttrib(QLatin1String file, QLatin1String attrib);
+//bool createDesktopIni(QFile desktopIniFile, const QString icon);
+
+bool OwncloudSetupWizard::customizeWinFolder(const QString& localFolder) {
+
+    //add +s to root folder
+    addAttrib(localFolder, "+s");
+
+    //copy ico from resource
+    QFile icon(localFolder + "/" + Theme::instance()->appNameGUI() + "_folder.ico");
+    if(!QFile::copy(":/client/theme/colored/owncloud-folder.ico", icon.fileName())) {
+        return false;
+    }
+    //add +h to ico
+    addAttrib(icon.fileName(), "+h");
+
+    //create desktop.ini
+    QString desktopIniFile = localFolder + "/desktop.ini";
+    if (!createDesktopIni(desktopIniFile, icon.fileName())) {
+        return false;
+    }
+    //add +h to desktop.ini
+    addAttrib(desktopIniFile, "+h");
+    return true;
+;
+}
+
+bool OwncloudSetupWizard::createDesktopIni(const QString &desktopIniFile, const QString icon) {
+
+    QFile file(desktopIniFile);
+
+    if (file.open(QIODevice::ReadWrite)) {
+        QTextStream stream(&file);
+        stream << "[.ShellClassInfo]\r" << endl;
+        stream << "ConfirmFileOp=0\r" << endl;
+        stream << "IconFile=" << icon << "\r" << endl;
+        stream << "IconIndex=0\r" << endl;
+        stream << "InfoTip=Cloud app.\r" << endl;
+        qDebug() << "File openned!";
+        return true;
+    } else {
+        qDebug() << "File NOT opened!";
+        return false;
+    }
+}
+
+void OwncloudSetupWizard::addAttrib(QString file, QString attrib) {
+
+//    QLatin1String surceFile = QLatin1String(file);
+//    QLatin1String attribute = QLatin1String(attrib);
+
+    QStringList scriptArgs;
+    scriptArgs << attrib
+               << file;
+    QProcess::execute(QLatin1String("attrib"),scriptArgs);
+
+//    QStringList scriptArgs;
+//    scriptArgs << QLatin1String(attrib)
+//               << QLatin1String(file);
+//    QProcess::execute(QLatin1String("attrib"),scriptArgs);
 }
 
 // ### TODO move into EntityExistsJob once we decide if/how to return gui strings from jobs
