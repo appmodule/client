@@ -318,10 +318,10 @@ void OwncloudSetupWizard::slotCreateLocalAndRemoteFolders(const QString& localFo
         }
         _ocWizard->appendToConfigurationLog( res );
     }
-    if (!customizeWinFolder(localFolder)) {
-//        _ocWizard->displayError(tr("Could not create local folder"), false);
-        nextStep = false;
-    }
+
+//    if (!customizeWinFolder(localFolder)) {
+//        nextStep = false;
+//    }
     if (nextStep) {
         EntityExistsJob *job = new EntityExistsJob(_ocWizard->account(), _ocWizard->account()->davPath() + remoteFolder, this);
         connect(job, SIGNAL(exists(QNetworkReply*)), SLOT(slotRemoteFolderExists(QNetworkReply*)));
@@ -347,6 +347,9 @@ bool OwncloudSetupWizard::customizeWinFolder(const QString& localFolder) {
     QString iconFilename = Theme::instance()->appNameGUI() + "_folder.ico";
     QFile icon(localFolder + "/" + Theme::instance()->appNameGUI() + "_folder.ico");
 
+    if (QFile::exists(icon.fileName())) {
+        QFile::remove(icon.fileName());
+    }
     if(!QFile::copy(":/client/theme/colored/owncloud-folder.ico", icon.fileName())) {
 //        _ocWizard->displayError(tr("Could not copy icon from resource"), false);
 //        return false;
