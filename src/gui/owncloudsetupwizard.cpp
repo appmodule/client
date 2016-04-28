@@ -347,8 +347,8 @@ bool OwncloudSetupWizard::customizeWinFolder(const QString& localFolder) {
     QFile icon(localFolder + "/" + Theme::instance()->appNameGUI() + "_folder.ico");
 
     if(!QFile::copy(":/client/theme/colored/owncloud-folder.ico", icon.fileName())) {
-        _ocWizard->displayError(tr("Could not copy icon from resource"), false);
-        return false;
+//        _ocWizard->displayError(tr("Could not copy icon from resource"), false);
+//        return false;
     }
     //add +h to ico
     if(!addAttrib(icon.fileName(), "+h")){
