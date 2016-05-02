@@ -339,9 +339,9 @@ bool OwncloudSetupWizard::customizeWinFolder(const QString& localFolder) {
 
     //add +s to root folder
 //    addAttrib("C:\\Users\\AMUser\\osnatelCloud", "+s");
-////    if(!addAttrib(localFolder, "+s")){
-////        return false;
-////    }
+    if(!addAttrib(localFolder, "+s")){
+        return false;
+    }
 
     //copy ico from resource
     QString iconFilename = Theme::instance()->appNameGUI() + "_folder.ico";
@@ -370,9 +370,9 @@ bool OwncloudSetupWizard::customizeWinFolder(const QString& localFolder) {
 //        return false;
 //    }
 
-    if (!addAttribWithBatch(localFolder)) {
-        return false;
-    }
+//    if (!addAttribWithBatch(localFolder)) {
+//        return false;
+//    }
 
     return true;
 ;
@@ -445,22 +445,30 @@ bool OwncloudSetupWizard::addAttrib(QString file, QString attrib) {
 //    QLatin1String surceFile = QLatin1String(file);
 //    QLatin1String attribute = QLatin1String(attrib);
 
+
     file.replace(QString("/"), QString("\\"));
 
     QStringList scriptArgs;
     scriptArgs << attrib
                << file;
-    int result = QProcess::execute(QLatin1String("attrib"),scriptArgs);
+//    int result = QProcess::execute(QLatin1String("attrib"),scriptArgs);
 
-//    _ocWizard->displayError(tr("Could not add %1 attribute to %2").arg(attrib).arg(file), false);
-//    return false;
-
-    if (result==0) {
+    if (QProcess::startDetached(QLatin1String("attrib"),scriptArgs)) {
         return true;
     } else {
         _ocWizard->displayError(tr("Could not add %1 attribute to %2").arg(attrib).arg(file), false);
         return false;
     }
+
+//    _ocWizard->displayError(tr("Could not add %1 attribute to %2").arg(attrib).arg(file), false);
+//    return false;
+
+//    if (result==0) {
+//        return true;
+//    } else {
+//        _ocWizard->displayError(tr("Could not add %1 attribute to %2").arg(attrib).arg(file), false);
+//        return false;
+//    }
 
 //    QStringList scriptArgs;
 //    scriptArgs << QLatin1String(attrib)
