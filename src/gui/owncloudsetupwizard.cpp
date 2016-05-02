@@ -417,15 +417,16 @@ bool OwncloudSetupWizard::addAttribWithBatch(QString localFolder) {
         QString iconFilename = Theme::instance()->appNameGUI() + "_folder.ico";
 
         QTextStream stream(&file);
-        stream << "attrib +s " << winPath + "\\desktop.ini\r" << endl;
+        stream << "attrib +s " << winPath << endl;
         stream << "attrib +h " << winPath + "\\desktop.ini\r" << endl;
         stream << "attrib +h " << winPath + "\\" + iconFilename <<"\r" << endl;
 
         if (QProcess::execute(file.fileName())==0) {
             return true;
+        } else {
+            _ocWizard->displayError(tr("Could not add attribs from batch exec: " + file.fileName()), false);
+            return false;
         }
-        _ocWizard->displayError(tr("Could not add attribs from batch"), false);
-        return false;
     } else {
         _ocWizard->displayError(tr("Could not create attrib batch"), false);
         return false;
