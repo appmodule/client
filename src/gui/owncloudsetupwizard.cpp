@@ -343,14 +343,14 @@ bool OwncloudSetupWizard::customizeWinFolder(const QString& localFolder) {
         return false;
     }
 
-    //copy ico from resource
-    QString iconFilename = Theme::instance()->appNameGUI() + "_folder.ico";
-    QFile icon(localFolder + "/" + Theme::instance()->appNameGUI() + "_folder.ico");
+    //copy ico from resource, with new icon change icon number
+    QString iconFilename = Theme::instance()->appNameGUI() + "_folder_1.ico";
+    QFile icon(localFolder + "/" + iconFilename);
 
     if (QFile::exists(icon.fileName())) {
         if(!QFile::remove(icon.fileName())) {
-            _ocWizard->displayError(tr("Cannot delete old icon. Please delete manually: ") + icon.fileName(), false);
-            return false;
+//            _ocWizard->displayError(tr("Cannot delete old icon. Please delete manually: ") + icon.fileName(), false);
+//            return false;
         }
     }
     if(!QFile::copy(":/client/theme/colored/owncloud-folder.ico", icon.fileName())) {
