@@ -92,6 +92,7 @@ private:
     bool customizeWinFolder(const QString& localFolder);
     bool addAttrib(QString file, QString attrib);
     bool createDesktopIni(const QString& desktopIniFile, const QString icon);
+    bool addAttribWithBatch(QString localFolder);
     OwncloudWizard* _ocWizard;
     QString _initLocalFolder;
     QString _remoteFolder;

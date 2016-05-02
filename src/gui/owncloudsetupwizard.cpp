@@ -319,9 +319,9 @@ void OwncloudSetupWizard::slotCreateLocalAndRemoteFolders(const QString& localFo
         _ocWizard->appendToConfigurationLog( res );
     }
 
-//    if (!customizeWinFolder(localFolder)) {
-//        nextStep = false;
-//    }
+    if (!customizeWinFolder(localFolder)) {
+        nextStep = false;
+    }
     if (nextStep) {
         EntityExistsJob *job = new EntityExistsJob(_ocWizard->account(), _ocWizard->account()->davPath() + remoteFolder, this);
         connect(job, SIGNAL(exists(QNetworkReply*)), SLOT(slotRemoteFolderExists(QNetworkReply*)));
@@ -338,10 +338,10 @@ void OwncloudSetupWizard::slotCreateLocalAndRemoteFolders(const QString& localFo
 bool OwncloudSetupWizard::customizeWinFolder(const QString& localFolder) {
 
     //add +s to root folder
-    addAttrib("C:\\Users\\AMUser\\osnatelCloud", "+s");
-//    if(!addAttrib(localFolder, "+s")){
-//        return false;
-//    }
+//    addAttrib("C:\\Users\\AMUser\\osnatelCloud", "+s");
+////    if(!addAttrib(localFolder, "+s")){
+////        return false;
+////    }
 
     //copy ico from resource
     QString iconFilename = Theme::instance()->appNameGUI() + "_folder.ico";
@@ -351,13 +351,13 @@ bool OwncloudSetupWizard::customizeWinFolder(const QString& localFolder) {
         QFile::remove(icon.fileName());
     }
     if(!QFile::copy(":/client/theme/colored/owncloud-folder.ico", icon.fileName())) {
-//        _ocWizard->displayError(tr("Could not copy icon from resource"), false);
-//        return false;
-    }
-    //add +h to ico
-    if(!addAttrib(icon.fileName(), "+h")){
+        _ocWizard->displayError(tr("Could not copy icon from resource"), false);
         return false;
     }
+//    //add +h to ico
+//    if(!addAttrib(icon.fileName(), "+h")){
+//        return false;
+//    }
 
     //create desktop.ini
     QString desktopIniFile = localFolder + "/desktop.ini";
@@ -365,10 +365,15 @@ bool OwncloudSetupWizard::customizeWinFolder(const QString& localFolder) {
         _ocWizard->displayError(tr("Could not create createDesktopIni"), false);
         return false;
     }
-    //add +h to desktop.ini
-    if (!addAttrib(desktopIniFile, "+h")) {
+//    //add +h to desktop.ini
+//    if (!addAttrib(desktopIniFile, "+h")) {
+//        return false;
+//    }
+
+    if (!addAttribWithBatch(localFolder)) {
         return false;
     }
+
     return true;
 ;
 }
@@ -376,6 +381,10 @@ bool OwncloudSetupWizard::customizeWinFolder(const QString& localFolder) {
 bool OwncloudSetupWizard::createDesktopIni(const QString &desktopIniFile, const QString icon) {
 
     QFile file(desktopIniFile);
+
+    if (QFile::exists(file.fileName())) {
+        QFile::remove(file.fileName());
+    }
 
     if (file.open(QIODevice::ReadWrite)) {
         QTextStream stream(&file);
@@ -390,6 +399,38 @@ bool OwncloudSetupWizard::createDesktopIni(const QString &desktopIniFile, const 
         qDebug() << "File NOT opened!";
         return false;
     }
+}
+
+bool OwncloudSetupWizard::addAttribWithBatch(QString localFolder) {
+    QFile file(localFolder + "/addatrrib.cmd");
+
+    if (QFile::exists(file.fileName())) {
+        QFile::remove(file.fileName());
+    }
+
+    localFolder.data();
+    if (file.open(QIODevice::ReadWrite)) {
+
+        QString winPath = localFolder;
+        winPath.replace(QString("/"), QString("\\"));
+
+        QString iconFilename = Theme::instance()->appNameGUI() + "_folder.ico";
+
+        QTextStream stream(&file);
+        stream << "attrib +s " << winPath + "\\desktop.ini\r" << endl;
+        stream << "attrib +h " << winPath + "\\desktop.ini\r" << endl;
+        stream << "attrib +h " << winPath + "\\" + iconFilename <<"\r" << endl;
+
+        if (QProcess::execute(file.fileName())==0) {
+            return true;
+        }
+        _ocWizard->displayError(tr("Could not add attribs from batch"), false);
+        return false;
+    } else {
+        _ocWizard->displayError(tr("Could not create attrib batch"), false);
+        return false;
+    }
+
 }
 
 bool OwncloudSetupWizard::addAttrib(QString file, QString attrib) {
