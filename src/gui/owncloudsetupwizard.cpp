@@ -424,7 +424,7 @@ bool OwncloudSetupWizard::addAttribWithBatch(QString localFolder) {
         if (QProcess::execute(file.fileName())==0) {
             return true;
         } else {
-            _ocWizard->displayError(tr("Could not add attribs from batch exec: " + file.fileName()), false);
+            _ocWizard->displayError(tr("Could not add attribs from batch exec: ") + file.fileName(), false);
             return false;
         }
     } else {
