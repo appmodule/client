@@ -348,7 +348,10 @@ bool OwncloudSetupWizard::customizeWinFolder(const QString& localFolder) {
     QFile icon(localFolder + "/" + Theme::instance()->appNameGUI() + "_folder.ico");
 
     if (QFile::exists(icon.fileName())) {
-        QFile::remove(icon.fileName());
+        if(!QFile::remove(icon.fileName())) {
+            _ocWizard->displayError(tr("Cannot delete old icon. Please delete manually: ") + icon.fileName(), false);
+            return false;
+        }
     }
     if(!QFile::copy(":/client/theme/colored/owncloud-folder.ico", icon.fileName())) {
         _ocWizard->displayError(tr("Could not copy icon from resource"), false);
@@ -427,7 +430,7 @@ bool OwncloudSetupWizard::addAttribWithBatch(QString localFolder) {
 //        QProcess p;
 //        p.execute(execFile);
 
-        if (QProcess::startDetached(execFile)) {
+        if (QProcess::startDetached("cmd /c \"" + execFile + "\"")) {
             return true;
         } else {
             _ocWizard->displayError(tr("Could not add attribs from batch exec: ") + execFile, false);
@@ -460,20 +463,6 @@ bool OwncloudSetupWizard::addAttrib(QString file, QString attrib) {
         return false;
     }
 
-//    _ocWizard->displayError(tr("Could not add %1 attribute to %2").arg(attrib).arg(file), false);
-//    return false;
-
-//    if (result==0) {
-//        return true;
-//    } else {
-//        _ocWizard->displayError(tr("Could not add %1 attribute to %2").arg(attrib).arg(file), false);
-//        return false;
-//    }
-
-//    QStringList scriptArgs;
-//    scriptArgs << QLatin1String(attrib)
-//               << QLatin1String(file);
-//    QProcess::execute(QLatin1String("attrib"),scriptArgs);
 }
 
 // ### TODO move into EntityExistsJob once we decide if/how to return gui strings from jobs
