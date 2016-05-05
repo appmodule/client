@@ -24,8 +24,8 @@ QString osnatelCloudTheme::overrideServerUrl() const
 {
 //    return QLatin1String("http://fulda242.server4you.net/ocdaily");
 //    return QLatin1String("https://mediencenter-fut.ewetel.de");
-//    return QLatin1String("http://cloud.appmodule.rs");
-    return QLatin1String("https://mediencenter.osnanet.de");
+    return QLatin1String("http://cloud.appmodule.rs");
+//    return QLatin1String("https://mediencenter.osnanet.de");
 }
 
 bool osnatelCloudTheme::singleAccount() const

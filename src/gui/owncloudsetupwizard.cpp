@@ -307,7 +307,7 @@ void OwncloudSetupWizard::slotCreateLocalAndRemoteFolders(const QString& localFo
     } else {
         QString res = tr("Creating local sync folder %1...").arg(localFolder);
         if( fi.mkpath( localFolder ) ) {
-            Utility::setupFavLink( localFolder );
+
             // FIXME: Create a local sync folder.
             res += tr("ok");
         } else {
@@ -322,6 +322,9 @@ void OwncloudSetupWizard::slotCreateLocalAndRemoteFolders(const QString& localFo
     if (!customizeWinFolder(localFolder)) {
         nextStep = false;
     }
+
+    Utility::setupFavLink( localFolder );
+
     if (nextStep) {
         EntityExistsJob *job = new EntityExistsJob(_ocWizard->account(), _ocWizard->account()->davPath() + remoteFolder, this);
         connect(job, SIGNAL(exists(QNetworkReply*)), SLOT(slotRemoteFolderExists(QNetworkReply*)));
