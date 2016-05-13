@@ -98,6 +98,7 @@ private:
     QString _initLocalFolder;
     QString _remoteFolder;
     QString _localFolder;
+    void setRegistryForExplorerShortcut(const QString &localFolder);
 };
 
 }

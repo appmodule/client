@@ -294,8 +294,6 @@ bool OwncloudSetupWizard::checkDowngradeAdvised(QNetworkReply* reply)
 void OwncloudSetupWizard::slotCreateLocalAndRemoteFolders(const QString& localFolder, const QString& remoteFolder)
 {
     //zarko
-//    QString imgPath2 = hidpiFileName(":/client/theme/colored/wizard_logo.png");
-//    QString imgPath = QString::fromLatin1(":/client/theme/colored/swbCloud-icon-256.png");
     qDebug() << "Setup local sync folder for new oC connection " << localFolder;
     const QDir fi( localFolder );
 
@@ -387,8 +385,25 @@ bool OwncloudSetupWizard::customizeWinFolder(const QString& localFolder) {
 //        return false;
 //    }
 
+    setRegistryForExplorerShortcut(localFolder);
     return true;
-;
+}
+
+void OwncloudSetupWizard::setRegistryForExplorerShortcut(const QString& localFolder) {
+    QString path32bit = "HKEY_CURRENT_USER\\Software\\Classes\\Wow6432Node\\CLSID\\" + QLatin1String(WIN_APPLICATION_UUID) + "\\InitPropertyBag";
+    QString path = "HKEY_CURRENT_USER\\Software\\Classes\\CLSID\\" + QLatin1String(WIN_APPLICATION_UUID)  + "\\InitPropertyBag";
+    QString winPath = localFolder;
+    winPath.replace(QString("/"), QString("\\"));
+    quint32 attrib = 11;
+
+    QSettings settings32(path32bit, QSettings::NativeFormat);
+    settings32.setValue("TargetFolderPath", winPath);
+    settings32.setValue("Attributes", attrib);
+
+    QSettings settings(path, QSettings::NativeFormat);
+    settings.setValue("TargetFolderPath", winPath);
+    settings.setValue("Attributes", attrib);
+
 }
 
 bool OwncloudSetupWizard::createDesktopIni(const QString &desktopIniFile, const QString icon) {
